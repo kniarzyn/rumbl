@@ -24,6 +24,7 @@ defmodule RumblWeb.UserController do
     case Accounts.register_user(user_params) do
       {:ok, user} ->
         conn
+        |> RumblWeb.Auth.login(user)
         |> put_flash(:info, "#{user.name} created!")
         |> redirect(to: Routes.user_path(conn, :index))
 
@@ -33,7 +34,6 @@ defmodule RumblWeb.UserController do
         |> render("new.html", changeset: changeset)
     end
   end
-
 
   defp authenticate(conn, _opts) do
     if conn.assigns.current_user do
