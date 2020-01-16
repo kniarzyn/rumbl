@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  app:
+    image: rumbl:latest
+    build:
+      context: .
+    env_file:
+      - .env
+    ports:
+      - 4000:4000
+    networks:
+      - dev-stack
+
+networks:
+  dev-stack:
+    external: true
